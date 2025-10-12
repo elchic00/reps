@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { createClient } from '@/lib/supabase/server';
+import Navbar from '@/components/navigation/Navbar';
 
 export default async function Home() {
   const supabase = await createClient();
@@ -13,7 +14,9 @@ export default async function Home() {
     .limit(5);
 
   return (
-    <main className="container mx-auto p-8">
+    <>
+      <Navbar />
+      <main className="container mx-auto p-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4">Welcome to Reps 🎯</h1>
@@ -47,5 +50,6 @@ export default async function Home() {
         </div>
       </div>
     </main>
+    </>
   );
 }
