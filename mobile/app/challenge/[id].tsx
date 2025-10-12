@@ -153,7 +153,7 @@ export default function ChallengeDetailScreen() {
           <Menu.Item
             onPress={handleShareLink}
             leadingIcon="share"
-            title="Share Link"
+            title="Share (AirDrop to Mac)"
           />
         </Menu>
 

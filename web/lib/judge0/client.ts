@@ -26,6 +26,11 @@ export async function executeCode(
   language: 'python' | 'javascript',
   testCases: { input: string; expected: string }[]
 ) {
+  // Check if Judge0 API key is configured
+  if (!JUDGE0_KEY) {
+    throw new Error('Judge0 API key not configured. Please add JUDGE0_API_KEY to your environment variables.');
+  }
+
   try {
     // Submit code for execution
     const submissions = await Promise.all(
