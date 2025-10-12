@@ -62,3 +62,31 @@ export async function openChallengeInWeb(challengeId: string): Promise<void> {
 export async function openHomeInWeb(): Promise<void> {
   await openWebWithAuth('/');
 }
+
+/**
+ * Gets the authenticated web URL for a challenge (without opening it)
+ * Useful for sharing or copying to clipboard
+ * @param challengeId - The ID of the challenge
+ * @returns Promise<string> - The full authenticated URL
+ */
+export async function getChallengeWebUrl(challengeId: string): Promise<string> {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession();
+
+    if (error || !session) {
+      // Return URL without auth if no session
+      return `${WEB_APP_URL}/challenge/${challengeId}`;
+    }
+
+    // Construct URL with auth tokens
+    const authUrl = new URL(`${WEB_APP_URL}/auth/token`);
+    authUrl.searchParams.set('access_token', session.access_token);
+    authUrl.searchParams.set('refresh_token', session.refresh_token);
+    authUrl.searchParams.set('redirect', `/challenge/${challengeId}`);
+
+    return authUrl.toString();
+  } catch (error) {
+    console.error('Error generating auth URL:', error);
+    return `${WEB_APP_URL}/challenge/${challengeId}`;
+  }
+}
