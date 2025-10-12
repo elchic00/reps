@@ -1,9 +1,10 @@
-import { View, StyleSheet, ScrollView, Linking } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Text, Button, Card, Chip } from "react-native-paper";
 import { useLocalSearchParams, router } from "expo-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Challenge } from "@/lib/types";
+import { openChallengeInWeb } from "@/lib/deepLink";
 
 export default function ChallengeDetailScreen() {
   const { id } = useLocalSearchParams();
@@ -31,10 +32,11 @@ export default function ChallengeDetailScreen() {
     }
   };
 
-  const handleOpenWeb = () => {
-    // Open web editor (we'll build this next)
-    const webUrl = `https://repsprep.com/challenge/${id}`;
-    Linking.openURL(webUrl);
+  const handleOpenWeb = async () => {
+    // Open web editor with authentication
+    if (typeof id === 'string') {
+      await openChallengeInWeb(id);
+    }
   };
 
   if (loading || !challenge) {

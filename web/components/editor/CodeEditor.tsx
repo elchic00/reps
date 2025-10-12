@@ -17,7 +17,7 @@ interface TestResult {
 }
 
 interface CodeEditorProps {
-  challengeId: string;
+  challengeId?: string;
   starterCode: string;
   language: 'python' | 'javascript';
   testCases: { input: string; expected: string }[];
@@ -25,7 +25,6 @@ interface CodeEditorProps {
 }
 
 export default function CodeEditor({
-  challengeId,
   starterCode,
   language,
   testCases,

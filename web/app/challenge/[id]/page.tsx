@@ -5,6 +5,16 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Navbar from '@/components/navigation/Navbar';
 
+interface TestCase {
+  input: string;
+  expected: string;
+  explanation?: string;
+}
+
+interface Hint {
+  text: string;
+}
+
 export default async function ChallengePage({
   params,
 }: {
@@ -59,7 +69,7 @@ export default async function ChallengePage({
           <Card className="p-6">
             <h2 className="text-xl font-semibold mb-3">Examples</h2>
             <div className="space-y-4">
-              {challenge.test_cases.slice(0, 2).map((tc: any, i: number) => (
+              {challenge.test_cases.slice(0, 2).map((tc: TestCase, i: number) => (
                 <div key={i} className="bg-gray-50 p-4 rounded-lg space-y-2">
                   <p className="font-mono text-sm">
                     <span className="font-semibold">Input:</span> {tc.input}
@@ -81,7 +91,7 @@ export default async function ChallengePage({
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-3">💡 Hints</h2>
               <ul className="space-y-2">
-                {challenge.hints.map((hint: any, i: number) => (
+                {challenge.hints.map((hint: Hint, i: number) => (
                   <li key={i} className="text-gray-700">
                     <span className="font-semibold">{i + 1}.</span> {hint.text}
                   </li>

@@ -1,6 +1,12 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
+import { createClient } from '@/lib/supabase/client';
+import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
 
 interface NavbarProps {
   showBackButton?: boolean;
@@ -8,6 +14,30 @@ interface NavbarProps {
 }
 
 export default function Navbar({ showBackButton = false, backHref = '/' }: NavbarProps) {
+  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
+  const supabase = createClient();
+
+  useEffect(() => {
+    // Get initial user
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabase.auth]);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push('/login');
+    router.refresh();
+  };
+
   return (
     <nav className="border-b bg-white sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
@@ -32,6 +62,30 @@ export default function Navbar({ showBackButton = false, backHref = '/' }: Navba
                 Challenges
               </Button>
             </Link>
+
+            {user ? (
+              <>
+                <span className="text-sm text-gray-600">
+                  {user.user_metadata?.username || user.email}
+                </span>
+                <Button variant="outline" size="sm" onClick={handleSignOut}>
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" size="sm">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button variant="default" size="sm">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

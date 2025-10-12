@@ -56,8 +56,13 @@ export async function executeCode(
     );
 
     return submissions;
-  } catch (error: any) {
-    console.error('Judge0 error:', error.response?.data || error.message);
+  } catch (error) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { data?: unknown }; message?: string };
+      console.error('Judge0 error:', axiosError.response?.data || axiosError.message);
+    } else {
+      console.error('Judge0 error:', error);
+    }
     throw error;
   }
 }
