@@ -26,7 +26,7 @@ export default async function Home() {
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Today's Challenges</h2>
+          <h2 className="text-2xl font-bold">Today&apos;s Challenges</h2>
           {challenges?.map((challenge) => (
             <Card key={challenge.id} className="p-6">
               <div className="flex justify-between items-start">
