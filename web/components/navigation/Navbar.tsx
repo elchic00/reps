@@ -57,12 +57,6 @@ export default function Navbar({ showBackButton = false, backHref = '/' }: Navba
           </div>
 
           <div className="flex items-center gap-4">
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                Challenges
-              </Button>
-            </Link>
-
             {user ? (
               <>
                 <span className="text-sm text-gray-600">
