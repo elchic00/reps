@@ -34,10 +34,10 @@ export default async function ChallengePage({
   }
 
   const difficultyColor = {
-    easy: 'bg-green-100 text-green-800',
-    medium: 'bg-yellow-100 text-yellow-800',
-    hard: 'bg-red-100 text-red-800',
-  }[challenge.difficulty as 'easy' | 'medium' | 'hard'] || 'bg-gray-100 text-gray-800';
+    easy: 'bg-green-500/20 text-green-400',
+    medium: 'bg-yellow-500/20 text-yellow-400',
+    hard: 'bg-red-500/20 text-red-400',
+  }[challenge.difficulty as 'easy' | 'medium' | 'hard'] || 'bg-secondary text-secondary-foreground';
 
   return (
     <>
@@ -61,7 +61,7 @@ export default async function ChallengePage({
 
           <Card className="p-6">
             <h2 className="text-xl font-semibold mb-3">Description</h2>
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+            <p className="text-foreground leading-relaxed whitespace-pre-line">
               {challenge.description}
             </p>
           </Card>
@@ -70,7 +70,7 @@ export default async function ChallengePage({
             <h2 className="text-xl font-semibold mb-3">Examples</h2>
             <div className="space-y-4">
               {challenge.test_cases.slice(0, 2).map((tc: TestCase, i: number) => (
-                <div key={i} className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <div key={i} className="bg-muted p-4 rounded-lg space-y-2">
                   <p className="font-mono text-sm">
                     <span className="font-semibold">Input:</span> {tc.input}
                   </p>
@@ -78,7 +78,7 @@ export default async function ChallengePage({
                     <span className="font-semibold">Output:</span> {tc.expected}
                   </p>
                   {tc.explanation && (
-                    <p className="text-sm text-gray-600 mt-2">
+                    <p className="text-sm text-muted-foreground mt-2">
                       <span className="font-semibold">Explanation:</span> {tc.explanation}
                     </p>
                   )}
@@ -92,7 +92,7 @@ export default async function ChallengePage({
               <h2 className="text-xl font-semibold mb-3">💡 Hints</h2>
               <ul className="space-y-2">
                 {challenge.hints.map((hint: Hint, i: number) => (
-                  <li key={i} className="text-gray-700">
+                  <li key={i} className="text-foreground">
                     <span className="font-semibold">{i + 1}.</span> {hint.text}
                   </li>
                 ))}
@@ -104,13 +104,13 @@ export default async function ChallengePage({
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-3">Constraints</h2>
               {challenge.time_complexity && (
-                <p className="text-gray-700 mb-2">
+                <p className="text-foreground mb-2">
                   <span className="font-semibold">Time Complexity:</span>{' '}
                   {challenge.time_complexity}
                 </p>
               )}
               {challenge.space_complexity && (
-                <p className="text-gray-700">
+                <p className="text-foreground">
                   <span className="font-semibold">Space Complexity:</span>{' '}
                   {challenge.space_complexity}
                 </p>

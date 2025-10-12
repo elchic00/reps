@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
-import { TextInput, Button, Text, Surface } from "react-native-paper";
+import { TextInput, Button, Text, useTheme } from "react-native-paper";
 import { useAuth } from "@/hooks/useAuth";
 import { router } from "expo-router";
 
@@ -10,6 +10,9 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { signIn } = useAuth();
+  const theme = useTheme();
+
+  const styles = createStyles(theme);
 
   const handleLogin = async () => {
     try {
@@ -29,7 +32,7 @@ export default function LoginScreen() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Surface style={styles.surface}>
+      <View style={styles.surface}>
         <Text variant="headlineMedium" style={styles.title}>
           Welcome Back! 👋
         </Text>
@@ -75,21 +78,23 @@ export default function LoginScreen() {
         >
           Don't have an account? Sign Up
         </Button>
-      </Surface>
+      </View>
     </KeyboardAvoidingView>
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     padding: 20,
+    backgroundColor: theme.colors.background,
   },
   surface: {
     padding: 20,
     borderRadius: 8,
     elevation: 4,
+    backgroundColor: theme.colors.surface,
   },
   title: {
     marginBottom: 8,
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   error: {
-    color: "red",
+    color: theme.colors.error,
     marginBottom: 8,
     textAlign: "center",
   },

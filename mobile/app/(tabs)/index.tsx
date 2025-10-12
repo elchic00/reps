@@ -5,13 +5,15 @@ import {
   Button,
   Chip,
   ActivityIndicator,
+  useTheme,
 } from "react-native-paper";
 import { useChallenges, useUserProgress } from "@/hooks/useChallenges";
 import { router } from "expo-router";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function HomeScreen() {
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
+  const theme = useTheme();
   const { getTodaysChallenge, loading: challengesLoading } = useChallenges();
   const { progress, markAsStarted } = useUserProgress();
 
@@ -19,6 +21,18 @@ export default function HomeScreen() {
   const userChallenge = progress.find(
     (p) => p.challenge_id === todaysChallenge?.id
   );
+
+  const styles = createStyles(theme);
+
+  // Calculate real stats from progress
+  const solvedCount = progress.filter((p) => p.status === "solved").length;
+  const totalPoints = progress
+    .filter((p) => p.status === "solved")
+    .reduce((sum, p) => sum + (p.challenge?.points || 0), 0);
+
+  // Calculate streak (simplified - count consecutive days with solved challenges)
+  // For now, just use 0 until we implement proper date tracking
+  const dayStreak = 0;
 
   if (challengesLoading) {
     return (
@@ -116,17 +130,17 @@ export default function HomeScreen() {
           <View style={styles.stats}>
             <View style={styles.stat}>
               <Text variant="displaySmall">🔥</Text>
-              <Text variant="bodyLarge">7</Text>
+              <Text variant="bodyLarge">{dayStreak}</Text>
               <Text variant="bodySmall">Day Streak</Text>
             </View>
             <View style={styles.stat}>
               <Text variant="displaySmall">✅</Text>
-              <Text variant="bodyLarge">23</Text>
+              <Text variant="bodyLarge">{solvedCount}</Text>
               <Text variant="bodySmall">Solved</Text>
             </View>
             <View style={styles.stat}>
               <Text variant="displaySmall">⭐</Text>
-              <Text variant="bodyLarge">450</Text>
+              <Text variant="bodyLarge">{totalPoints}</Text>
               <Text variant="bodySmall">Points</Text>
             </View>
           </View>
@@ -136,15 +150,17 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: theme.colors.background,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: theme.colors.background,
   },
   header: {
     marginBottom: 24,
@@ -155,6 +171,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 16,
+    backgroundColor: theme.colors.surface,
   },
   challengeHeader: {
     marginBottom: 16,
@@ -165,7 +182,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   difficultyChip: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: theme.colors.surfaceVariant,
   },
   easy: {
     backgroundColor: "#4caf50",
@@ -188,6 +205,7 @@ const styles = StyleSheet.create({
   },
   statsCard: {
     marginBottom: 16,
+    backgroundColor: theme.colors.surface,
   },
   stats: {
     flexDirection: "row",

@@ -6,7 +6,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { TextInput, Button, Text, Surface } from "react-native-paper";
+import { TextInput, Button, Text, useTheme } from "react-native-paper";
 import { useAuth } from "@/hooks/useAuth";
 import { router } from "expo-router";
 
@@ -17,6 +17,9 @@ export default function SignUpScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { signUp } = useAuth();
+  const theme = useTheme();
+
+  const styles = createStyles(theme);
 
   const handleSignUp = async () => {
     if (!email || !password || !username) {
@@ -47,7 +50,7 @@ export default function SignUpScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Surface style={styles.surface}>
+        <View style={styles.surface}>
           <Text variant="headlineMedium" style={styles.title}>
             Join Reps 🚀
           </Text>
@@ -102,15 +105,16 @@ export default function SignUpScreen() {
           >
             Already have an account? Sign In
           </Button>
-        </Surface>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.background,
   },
   scrollContent: {
     flexGrow: 1,
@@ -121,6 +125,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 8,
     elevation: 4,
+    backgroundColor: theme.colors.surface,
   },
   title: {
     marginBottom: 8,
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   error: {
-    color: "red",
+    color: theme.colors.error,
     marginBottom: 8,
     textAlign: "center",
   },

@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     );
 
     // Set the session using the tokens from mobile
-    const { data, error } = await supabase.auth.setSession({
+    const { error } = await supabase.auth.setSession({
       access_token,
       refresh_token,
     });
