@@ -1,20 +1,21 @@
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
-import CodeEditor from '@/components/editor/CodeEditor';
+import CodeEditorWrapper from '@/components/editor/CodeEditorWrapper';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 export default async function ChallengePage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const supabase = createClient();
+  const { id } = await params;
+  const supabase = await createClient();
 
   const { data: challenge, error } = await supabase
     .from('challenges')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (error || !challenge) {
@@ -25,7 +26,7 @@ export default async function ChallengePage({
     easy: 'bg-green-100 text-green-800',
     medium: 'bg-yellow-100 text-yellow-800',
     hard: 'bg-red-100 text-red-800',
-  }[challenge.difficulty];
+  }[challenge.difficulty as 'easy' | 'medium' | 'hard'] || 'bg-gray-100 text-gray-800';
 
   return (
     <div className="container mx-auto p-4 lg:p-8">
@@ -107,15 +108,11 @@ export default async function ChallengePage({
 
         {/* Right: Code Editor */}
         <div className="lg:sticky lg:top-4 lg:h-screen lg:pb-8">
-          <CodeEditor
+          <CodeEditorWrapper
             challengeId={challenge.id}
             starterCode={challenge.starter_code_python || '# Write your solution here'}
             language="python"
             testCases={challenge.test_cases}
-            onSuccess={() => {
-              // TODO: Update user_challenges table
-              console.log('Challenge completed!');
-            }}
           />
         </div>
       </div>
