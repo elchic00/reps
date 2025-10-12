@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import CodeEditorWrapper from '@/components/editor/CodeEditorWrapper';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Navbar from '@/components/navigation/Navbar';
 
 export default async function ChallengePage({
   params,
@@ -29,8 +30,10 @@ export default async function ChallengePage({
   }[challenge.difficulty as 'easy' | 'medium' | 'hard'] || 'bg-gray-100 text-gray-800';
 
   return (
-    <div className="container mx-auto p-4 lg:p-8">
-      <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+    <>
+      <Navbar showBackButton backHref="/" />
+      <div className="container mx-auto p-4 lg:p-8">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
         {/* Left: Problem Description */}
         <div className="space-y-6 overflow-y-auto max-h-screen pb-8">
           <div>
@@ -117,5 +120,6 @@ export default async function ChallengePage({
         </div>
       </div>
     </div>
+    </>
   );
 }
