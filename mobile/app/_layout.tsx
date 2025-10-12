@@ -14,16 +14,14 @@ export default function RootLayout() {
     const inAuthGroup = segments[0] === "(auth)";
 
     if (!user && !inAuthGroup) {
-      // Redirect to login if not authenticated
       router.replace("/(auth)/login");
     } else if (user && inAuthGroup) {
-      // Redirect to tabs if authenticated
       router.replace("/(tabs)");
     }
   }, [user, loading, segments]);
 
   if (loading) {
-    return null; // Or a loading screen
+    return null;
   }
 
   return (
