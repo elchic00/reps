@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView, Share, Alert } from "react-native";
-import { Text, Button, Card, Chip, Menu } from "react-native-paper";
+import { Text, Button, Card, Chip, Menu, useTheme } from "react-native-paper";
 import { useLocalSearchParams, router } from "expo-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
@@ -12,6 +12,9 @@ export default function ChallengeDetailScreen() {
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [loading, setLoading] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);
+  const theme = useTheme();
+
+  const styles = createStyles(theme);
 
   useEffect(() => {
     fetchChallenge();
@@ -169,10 +172,11 @@ export default function ChallengeDetailScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: theme.colors.background,
   },
   header: {
     marginBottom: 24,
@@ -184,6 +188,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 16,
+    backgroundColor: theme.colors.surface,
   },
   description: {
     marginTop: 8,
@@ -192,12 +197,13 @@ const styles = StyleSheet.create({
   example: {
     marginTop: 8,
     padding: 12,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.colors.surfaceVariant,
     borderRadius: 8,
   },
   code: {
     fontFamily: "monospace",
     fontSize: 14,
+    color: theme.colors.onSurfaceVariant,
   },
   hint: {
     marginTop: 8,

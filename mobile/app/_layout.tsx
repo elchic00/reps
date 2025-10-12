@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Stack, useRouter, useSegments } from "expo-router";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, MD3DarkTheme } from "react-native-paper";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function RootLayout() {
@@ -25,7 +25,7 @@ export default function RootLayout() {
   }
 
   return (
-    <PaperProvider>
+    <PaperProvider theme={MD3DarkTheme}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />

@@ -25,7 +25,7 @@ export interface ExecutionResult {
 export async function executeCode(
   code: string,
   language: "python" | "javascript",
-  testCases: { args: any[]; expected: any }[]
+  testCases: { args: unknown[]; expected: unknown }[]
 ) {
   try {
     const submissions = await Promise.all(
@@ -81,8 +81,9 @@ console.log(JSON.stringify(result));
     );
 
     return submissions;
-  } catch (error: any) {
-    console.error("Judge0 error:", error.response?.data || error.message);
+  } catch (error: unknown) {
+    const err = error as { response?: { data?: unknown }; message?: string };
+    console.error("Judge0 error:", err.response?.data || err.message);
     throw error;
   }
 }

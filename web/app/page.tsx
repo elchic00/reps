@@ -20,7 +20,7 @@ export default async function Home() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4">Welcome to Reps 🎯</h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Daily coding practice for technical interviews
           </p>
         </div>
@@ -33,10 +33,10 @@ export default async function Home() {
                 <div>
                   <h3 className="text-xl font-semibold mb-2">{challenge.title}</h3>
                   <div className="flex gap-2">
-                    <span className="text-sm px-2 py-1 bg-gray-100 rounded">
+                    <span className="text-sm px-2 py-1 bg-secondary text-secondary-foreground rounded">
                       {challenge.difficulty}
                     </span>
-                    <span className="text-sm px-2 py-1 bg-blue-100 rounded">
+                    <span className="text-sm px-2 py-1 bg-primary/10 text-primary rounded">
                       {challenge.category}
                     </span>
                   </div>
