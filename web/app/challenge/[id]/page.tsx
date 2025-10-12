@@ -123,8 +123,8 @@ export default async function ChallengePage({
         <div className="lg:sticky lg:top-4 lg:h-screen lg:pb-8">
           <CodeEditorWrapper
             challengeId={challenge.id}
-            starterCode={challenge.starter_code_python || '# Write your solution here'}
-            language="python"
+            starterCodePython={challenge.starter_code_python || '# Write your solution here'}
+            starterCodeJavaScript={challenge.starter_code_javascript || '// Write your solution here'}
             testCases={challenge.test_cases}
           />
         </div>
