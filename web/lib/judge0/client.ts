@@ -1,11 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
-const JUDGE0_API = process.env.JUDGE0_API_URL || 'https://judge0-ce.p.rapidapi.com';
+const JUDGE0_API =
+  process.env.JUDGE0_API_URL || "https://judge0-ce.p.rapidapi.com";
 const JUDGE0_KEY = process.env.JUDGE0_API_KEY;
 
 // Language IDs for Judge0
 export const LANGUAGES = {
-  python: 71,  // Python 3
+  python: 71, // Python 3
   javascript: 63, // JavaScript (Node.js)
 };
 
@@ -23,51 +24,65 @@ export interface ExecutionResult {
 
 export async function executeCode(
   code: string,
-  language: 'python' | 'javascript',
-  testCases: { input: string; expected: string }[]
+  language: "python" | "javascript",
+  testCases: { args: any[]; expected: any }[]
 ) {
-  // Check if Judge0 API key is configured
-  if (!JUDGE0_KEY) {
-    throw new Error('Judge0 API key not configured. Please add JUDGE0_API_KEY to your environment variables.');
-  }
-
   try {
-    // Submit code for execution
     const submissions = await Promise.all(
       testCases.map(async (testCase) => {
+        // Build the complete program
+        let fullCode = "";
+
+        if (language === "python") {
+          fullCode = `
+import json
+${code}
+
+# Execute test
+result = two_sum(${JSON.stringify(testCase.args[0])}, ${testCase.args[1]})
+print(json.dumps(result))
+`;
+        } else if (language === "javascript") {
+          fullCode = `
+${code}
+
+// Execute test
+const result = twoSum(${JSON.stringify(testCase.args[0])}, ${testCase.args[1]});
+console.log(JSON.stringify(result));
+`;
+        }
+
         const response = await axios.post(
           `${JUDGE0_API}/submissions?base64_encoded=false&wait=true`,
           {
-            source_code: code,
+            source_code: fullCode,
             language_id: LANGUAGES[language],
-            stdin: testCase.input,
-            expected_output: testCase.expected,
+            stdin: "",
           },
           {
             headers: {
-              'content-type': 'application/json',
-              'X-RapidAPI-Key': JUDGE0_KEY,
-              'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
+              "content-type": "application/json",
+              "X-RapidAPI-Key": JUDGE0_KEY,
+              "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
             },
           }
         );
 
+        const output = response.data.stdout?.trim();
+        const expected = JSON.stringify(testCase.expected);
+
         return {
           ...response.data,
-          input: testCase.input,
-          expected: testCase.expected,
+          passed: output === expected,
+          actual: output,
+          expected: expected,
         };
       })
     );
 
     return submissions;
-  } catch (error) {
-    if (error && typeof error === 'object' && 'response' in error) {
-      const axiosError = error as { response?: { data?: unknown }; message?: string };
-      console.error('Judge0 error:', axiosError.response?.data || axiosError.message);
-    } else {
-      console.error('Judge0 error:', error);
-    }
+  } catch (error: any) {
+    console.error("Judge0 error:", error.response?.data || error.message);
     throw error;
   }
 }

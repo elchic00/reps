@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -33,6 +33,11 @@ export default function CodeEditor({
   const [code, setCode] = useState(starterCode);
   const [testResults, setTestResults] = useState<TestResult[]>([]);
   const [isRunning, setIsRunning] = useState(false);
+
+  // Update code when starterCode changes (language switch)
+  useEffect(() => {
+    setCode(starterCode);
+  }, [starterCode]);
 
   const handleRunCode = async () => {
     setIsRunning(true);
