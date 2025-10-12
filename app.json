@@ -13,33 +13,19 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourname.repsprep"
+      "bundleIdentifier": "com.yourname.reps"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yourname.repsprep"
+      "package": "com.yourname.reps"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/notification-icon.png",
-          "color": "#ffffff"
-        }
-      ]
-    ],
-    "scheme": "repsprep",
-    "extra": {
-      "eas": {
-        "projectId": "your-project-id-here"
-      }
-    }
+    "plugins": ["expo-router"],
+    "scheme": "reps"
   }
 }
