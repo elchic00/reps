@@ -9,10 +9,19 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/*": ["./*"],
-      "@reps/shared": ["../shared"]
+      "@/*": [
+        "./*"
+      ],
+      "@reps/shared": [
+        "../shared"
+      ]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
