@@ -11,7 +11,7 @@ import { router } from "expo-router";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function HomeScreen() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { getTodaysChallenge, loading: challengesLoading } = useChallenges();
   const { progress, markAsStarted } = useUserProgress();
 
@@ -43,10 +43,22 @@ export default function HomeScreen() {
     router.push(`/challenge/${todaysChallenge.id}`);
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      router.replace("/(auth)/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text variant="headlineLarge">Today's Challenge 🎯</Text>
+        <Button mode="text" onPress={handleLogout}>
+          Logout
+        </Button>
         <Text variant="bodyMedium" style={styles.date}>
           {new Date().toLocaleDateString("en-US", {
             weekday: "long",

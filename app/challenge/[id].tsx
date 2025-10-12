@@ -33,7 +33,7 @@ export default function ChallengeDetailScreen() {
 
   const handleOpenWeb = () => {
     // Open web editor (we'll build this next)
-    const webUrl = `https://codepathprep.com/challenge/${id}`;
+    const webUrl = `https://repsprep.com/challenge/${id}`;
     Linking.openURL(webUrl);
   };
 
