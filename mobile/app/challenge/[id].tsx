@@ -1,15 +1,17 @@
-import { View, StyleSheet, ScrollView } from "react-native";
-import { Text, Button, Card, Chip } from "react-native-paper";
+import { View, StyleSheet, ScrollView, Share, Alert } from "react-native";
+import { Text, Button, Card, Chip, Menu } from "react-native-paper";
 import { useLocalSearchParams, router } from "expo-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Challenge } from "@/lib/types";
-import { openChallengeInWeb } from "@/lib/deepLink";
+import { getChallengeWebUrl } from "@/lib/deepLink";
+import * as Clipboard from 'expo-clipboard';
 
 export default function ChallengeDetailScreen() {
   const { id } = useLocalSearchParams();
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [loading, setLoading] = useState(true);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   useEffect(() => {
     fetchChallenge();
@@ -32,11 +34,33 @@ export default function ChallengeDetailScreen() {
     }
   };
 
-  const handleOpenWeb = async () => {
-    // Open web editor with authentication
-    if (typeof id === 'string') {
-      await openChallengeInWeb(id);
+  const handleShareLink = async () => {
+    if (typeof id !== 'string') return;
+
+    try {
+      const url = await getChallengeWebUrl(id);
+      await Share.share({
+        message: `Check out this coding challenge: ${challenge?.title}\n${url}`,
+        url: url,
+      });
+    } catch (error) {
+      console.error('Error sharing:', error);
     }
+    setMenuVisible(false);
+  };
+
+  const handleCopyLink = async () => {
+    if (typeof id !== 'string') return;
+
+    try {
+      const url = await getChallengeWebUrl(id);
+      await Clipboard.setStringAsync(url);
+      Alert.alert('Success', 'Link copied to clipboard! Paste it on your desktop browser.');
+    } catch (error) {
+      console.error('Error copying:', error);
+      Alert.alert('Error', 'Failed to copy link');
+    }
+    setMenuVisible(false);
   };
 
   if (loading || !challenge) {
@@ -107,14 +131,31 @@ export default function ChallengeDetailScreen() {
       </Card>
 
       <View style={styles.actions}>
-        <Button
-          mode="contained"
-          onPress={handleOpenWeb}
-          style={styles.primaryButton}
-          icon="open-in-new"
+        <Menu
+          visible={menuVisible}
+          onDismiss={() => setMenuVisible(false)}
+          anchor={
+            <Button
+              mode="contained"
+              onPress={() => setMenuVisible(true)}
+              style={styles.primaryButton}
+              icon="share-variant"
+            >
+              Open on Desktop
+            </Button>
+          }
         >
-          Open in Web Editor
-        </Button>
+          <Menu.Item
+            onPress={handleCopyLink}
+            leadingIcon="content-copy"
+            title="Copy Link"
+          />
+          <Menu.Item
+            onPress={handleShareLink}
+            leadingIcon="share"
+            title="Share Link"
+          />
+        </Menu>
 
         <Button
           mode="outlined"
