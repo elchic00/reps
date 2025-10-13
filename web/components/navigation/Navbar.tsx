@@ -39,7 +39,7 @@ export default function Navbar({ showBackButton = false, backHref = '/' }: Navba
   };
 
   return (
-    <nav className="border-b bg-white sticky top-0 z-50">
+    <nav className="border-b bg-background sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -51,7 +51,7 @@ export default function Navbar({ showBackButton = false, backHref = '/' }: Navba
                 </Button>
               </Link>
             )}
-            <Link href="/" className="text-2xl font-bold hover:opacity-80 transition-opacity">
+            <Link href="/" className="text-2xl font-bold hover:opacity-80 transition-opacity text-foreground">
               Reps 🎯
             </Link>
           </div>
@@ -59,7 +59,7 @@ export default function Navbar({ showBackButton = false, backHref = '/' }: Navba
           <div className="flex items-center gap-4">
             {user ? (
               <>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-muted-foreground">
                   {user.user_metadata?.username || user.email}
                 </span>
                 <Button variant="outline" size="sm" onClick={handleSignOut}>
