@@ -16,10 +16,10 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <main className="container mx-auto p-8">
+      <main className="min-h-screen bg-background text-foreground container mx-auto p-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4">Welcome to Reps 🎯</h1>
+          <h1 className="text-5xl font-bold mb-4 text-foreground">Welcome to Reps 🎯</h1>
           <p className="text-xl text-muted-foreground">
             Daily coding practice for technical interviews
           </p>
