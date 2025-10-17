@@ -9,8 +9,31 @@
   [![React Native](https://img.shields.io/badge/React_Native-0.81-61dafb?logo=react)](https://reactnative.dev/)
   [![Expo](https://img.shields.io/badge/Expo-54.0-000020?logo=expo)](https://expo.dev/)
   [![Supabase](https://img.shields.io/badge/Supabase-2.75-3ECF8E?logo=supabase)](https://supabase.com/)
+</div>
 
-  <img src="https://via.placeholder.com/800x400/1a1a2e/ffffff?text=Reps+App+Screenshot" alt="Reps App Screenshot" width="100%">
+---
+
+## 📱 Demo
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><strong>📱 Mobile App</strong></td>
+      <td align="center"><strong>🌐 Web App</strong></td>
+    </tr>
+    <tr>
+      <td>
+        <video src="https://github.com/elchic00/reps/raw/main/.github/demos/mobile-demo.mp4" width="400" controls>
+          Your browser does not support the video tag.
+        </video>
+      </td>
+      <td>
+        <video src="https://github.com/elchic00/reps/raw/main/.github/demos/web-demo.mp4" width="400" controls>
+          Your browser does not support the video tag.
+        </video>
+      </td>
+    </tr>
+  </table>
 </div>
 
 ---
@@ -124,23 +147,6 @@ Then:
 - Press `i` for iOS simulator
 - Press `a` for Android emulator
 - Scan QR code with Expo Go app for physical device
-
-## 🎨 Screenshots
-
-<div align="center">
-  <table>
-    <tr>
-      <td><img src="https://via.placeholder.com/300x600/1a1a2e/ffffff?text=Home+Screen" alt="Home Screen" width="250"></td>
-      <td><img src="https://via.placeholder.com/300x600/1a1a2e/ffffff?text=Challenge+Screen" alt="Challenge Screen" width="250"></td>
-      <td><img src="https://via.placeholder.com/300x600/1a1a2e/ffffff?text=Leaderboard" alt="Leaderboard" width="250"></td>
-    </tr>
-    <tr>
-      <td align="center">Home Screen</td>
-      <td align="center">Challenge Screen</td>
-      <td align="center">Leaderboard</td>
-    </tr>
-  </table>
-</div>
 
 ## 🛠️ Development
 
