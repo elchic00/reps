@@ -23,14 +23,10 @@
     </tr>
     <tr>
       <td>
-        <video src="https://github.com/elchic00/reps/raw/main/.github/demos/mobile-demo.mp4" width="400" controls>
-          Your browser does not support the video tag.
-        </video>
+        <img src=".github/demos/mobile-demo.gif" width="400" alt="Mobile App Demo">
       </td>
       <td>
-        <video src="https://github.com/elchic00/reps/raw/main/.github/demos/web-demo.mp4" width="400" controls>
-          Your browser does not support the video tag.
-        </video>
+        <img src=".github/demos/web-demo.gif" width="600" alt="Web App Demo">
       </td>
     </tr>
   </table>
