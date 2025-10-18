@@ -211,14 +211,16 @@ Cross-platform authentication powered by Supabase:
 
 ## 🚧 Roadmap
 
-- [ ] Video solution walkthroughs
+
+- [ ] Connect to CodePath interview prep with cohort leaderboards 
 - [ ] Interview prep mode with timer
-- [ ] Company-specific question sets (FAANG)
-- [ ] Collaborative coding sessions
 - [ ] AI-powered hints and explanations
-- [ ] Weekly coding contests
 - [ ] Achievement badges and rewards
 - [ ] Code review from mentors
+- [ ] Company-specific question sets (FAANG)
+- [ ] Video solution walkthroughs
+- [ ] Collaborative coding sessions (Stretch)
+- [ ] Weekly coding contests (Stretch)
 
 ## 🤝 Contributing
 
