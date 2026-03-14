@@ -247,17 +247,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Next.js](https://nextjs.org/) - Web framework
 - [Tailwind CSS](https://tailwindcss.com/) - Styling framework
 
-## 📧 Contact
-
-Built with ❤️ by [Your Name](https://github.com/yourusername)
-
-- Website: [yourwebsite.com](https://yourwebsite.com)
-- Email: your.email@example.com
-- Twitter: [@yourhandle](https://twitter.com/yourhandle)
-
 ---
 
 <div align="center">
   <p>⭐ Star this repo if you find it helpful!</p>
-  <p>Made with TypeScript, React, and lots of coffee ☕</p>
+  <p>Made with TypeScript, React, and coffee ☕</p>
 </div>
