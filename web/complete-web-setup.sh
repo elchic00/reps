@@ -13,19 +13,14 @@ if [ ! -f "package.json" ]; then
     exit 1
 fi
 
-# Step 3: Update .env.local with actual credentials
-echo "📝 Step 3: Updating .env.local with your credentials..."
-cat > .env.local << 'EOF'
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=https://hkubooimyeyhxotozorx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrdWJvb2lteWV5aHhvdG96b3J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNTY4NTQsImV4cCI6MjA3NTgzMjg1NH0.wEetouGnG-FIXko-lkkBuGc2nQBzBPozmncQpiPp_mc
-
-# Judge0 Configuration (RapidAPI)
-JUDGE0_API_URL=https://judge0-ce.p.rapidapi.com
-JUDGE0_API_KEY=***REDACTED-JUDGE0-KEY***
-EOF
-
-echo "✅ Environment variables configured!"
+# Step 3: Set up .env.local from the template
+echo "📝 Step 3: Setting up .env.local..."
+if [ ! -f ".env.local" ]; then
+    cp .env.example .env.local
+    echo "✅ Created .env.local from .env.example — fill in your real Supabase/Judge0 credentials before running the app."
+else
+    echo "ℹ️  .env.local already exists, leaving it as-is."
+fi
 
 # Step 4: Install all required dependencies
 echo ""
